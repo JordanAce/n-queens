@@ -79,12 +79,39 @@
     //
     // test if a specific row on this board contains a conflict
     hasRowConflictAt: function(rowIndex) {
-      return false; // fixme
+      var board = this;
+      var counter = 0;
+      for (var i = 0; i < board.attributes[rowIndex].length; i++) {
+        if (board.attributes[rowIndex][i] === 1) {
+          counter ++;
+        }
+      }
+      if (counter > 1) {
+        return true;
+      } else {
+        return false;
+      }
     },
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
-      return false; // fixme
+      var board = this;
+      var counter = 0;
+      for (var i = 0; i < board.attributes.n; i++) {
+      //debugger;
+        if (board.attributes[i].indexOf(1) > -1) {
+          for (var j = 0; j < board.attributes[i].length; j++) {
+            if (board.attributes[i][j] === 1) {
+              counter++;
+            }
+          }
+        }
+      }
+      if (counter > 1) {
+        return true;
+      } else {
+        return false;
+      }
     },
 
 
@@ -94,12 +121,66 @@
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
-      return false; // fixme
+      var board = this.attributes;
+      var counter = 0;
+      var colArray = [];
+      for (var i = 0; i < board.n; i++) {
+        colArray.push(board[i][colIndex]);
+      }
+      for (var i = 0; i < colArray.length; i++) {
+        if (colArray[i] === 1) {
+          counter++;
+        }
+      }
+      if (counter > 1 ) {
+        return true;
+      } else {
+        return false;
+      }
     },
 
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
-      return false; // fixme
+      var board = this.attributes;
+      var isTrue = false;
+      // for (var i = 0; i < board.n; i++) {
+      //   isTrue = board.hasAnyColConflicts(i);
+      //   if (isTrue) {
+      //     return isTrue;
+      //   } else {
+      //     isTrue;
+      //   }
+      // }
+      // return isTrue;
+      // return false; // fixme
+
+      var recursive = function(colIndex) {
+        var counter = 0;
+        var colArray = [];
+        for (var i = 0; i < board.n; i++) {
+          colArray.push(board[i][colIndex]);
+        }
+        for (var i = 0; i < colArray.length; i++) {
+          if (colArray[i] === 1) {
+            counter++;
+          }
+        }
+        if (counter > 1 ) {
+          return true;
+        } else {
+          return false;
+        }
+      };
+
+      for (var i = 0; i < board.n; i++) {
+        var result = recursive(i);
+        if (result) {
+          return true;
+        } else {
+          isTrue = false;
+        }
+      }
+      return isTrue;
     },
 
 
@@ -109,6 +190,7 @@
     //
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
+      // Anyway to count board[i][j + 1] <-- In a loop?
       return false; // fixme
     },
 
