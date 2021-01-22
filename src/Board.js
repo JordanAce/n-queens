@@ -95,23 +95,30 @@
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
-      var board = this;
+      var board = this.attributes;
       var counter = 0;
-      for (var i = 0; i < board.attributes.n; i++) {
+      var length = board.n;
+      var result = false;
+      for (var i = 0; i < length; i++) {
       //debugger;
-        if (board.attributes[i].indexOf(1) > -1) {
-          for (var j = 0; j < board.attributes[i].length; j++) {
-            if (board.attributes[i][j] === 1) {
+        if (board[i].indexOf(1) > -1) {
+          for (var j = 0; j < board[i].length; j++) {
+            if (board[i][j] === 1) {
               counter++;
             }
+            if (counter > 1) {
+              return true;
+            }
           }
+          counter = 0;
         }
       }
-      if (counter > 1) {
-        return true;
-      } else {
-        return false;
-      }
+      return result;
+      // if (counter > 1) {
+      //   return true;
+      // } else {
+      //   return false;
+      // }
     },
 
 
@@ -190,14 +197,68 @@
     //
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
-      // Anyway to count board[i][j + 1] <-- In a loop?
-      return false; // fixme
+      var start = majorDiagonalColumnIndexAtFirstRow;
+      var board = this.attributes;
+      var length = board.n;
+      var isTrue = false;
+      var counter = 0;
+      var rowCounter = 0;
+      while (rowCounter < length && start < length) {
+        if (board[rowCounter][start] === 1) {
+          counter++;
+        }
+        rowCounter++;
+        start++;
+      }
+      // var recursive = function() {
+      //   while (rowCounter < length && ColCounter < length) {
+
+      //   }
+      //   for (var i = start; i < length; i++) {
+      //     // if (rowCounter === length) {
+      //     //   break;
+      //     // }
+      //     if (board[rowCounter][start] === 1) {
+      //       counter++;
+      //     }
+      //     // debugger;
+      //     if (board[rowCounter + 1][start + 1] === 1) { // Board [0][1]; // [1][2] // [2][3] // [3][4]
+      //       counter++;
+      //     }
+      //     if (counter > 1) {
+      //       return true;
+      //     }
+      //     start++;
+      //     rowCounter++;
+      //     recursive(board);
+      //     // if (rowCounter < length - 1) {
+      //     //   recursive(board);
+      //     // } else {
+      //     //   break;
+      //     // }
+      //   }
+      // };
+      // recursive(board);
+      return counter > 1;
     },
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
-      return false; // fixme
+      var newBoard = this.attributes;
+      var length = newBoard.n;
+      var finalResult = false;
+      var negativeIndex = -(length - 2);
+      for (var i = negativeIndex; i < length; i++) {
+        if (this.hasMajorDiagonalConflictAt(i)) {
+          return true;
+        }
+      }
+      return finalResult;
     },
+
+
+
+
 
 
 
@@ -206,14 +267,48 @@
     //
     // test if a specific minor diagonal on this board contains a conflict
     hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow) {
-
-      return false; // fixme
+      var start = minorDiagonalColumnIndexAtFirstRow;
+      // return false; // fixme
+      var board = this.attributes;
+      var length = board.n;
+      var counter = 0;
+      var rowCounter = 0;
+      while (start > -1 && rowCounter < length) {
+        if (board[rowCounter][start] === 1) {
+          counter++;
+        }
+        rowCounter++;
+        start--;
+      }
+      return counter > 1;
     },
+
+    //   [0, 0, 1, 0],
+    //   [0, 0, 0, 0],
+    //   [1, 0, 0, 0],
+    //   [0, 0, 0, 0]
+    // ]);
+
 
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
-      return false; // fixme
-    }
+      var newBoard = this.attributes;
+      var length = newBoard.n;
+      var finalResult = false;
+      // var topResult = false;
+      // var bottomResult = false;
+      var positiveIndex = (length + 1);
+      for (var i = positiveIndex; i > 0; i--) {
+        if (this.hasMinorDiagonalConflictAt(i)) {
+          return true;
+        }
+        // topResult = this.hasMinorDiagonalConflictAt(i);
+        // if (topResult === true) {
+        //   finalResult = true;
+        // }
+      }
+      return finalResult;
+    },
 
     /*--------------------  End of Helper Functions  ---------------------*/
 
