@@ -25,8 +25,7 @@ describe('solvers', function() {
     it('finds the number of valid solutions for n of 1-8', function() {
       _.range(1, 9).map(function(n) {
         var solutionCount = countNRooksSolutions(n);
-        var expectedSolutionCount = [1, 1, 2, 6, 24, 120, 720, 5040, 40320][n];
-
+        var expectedSolutionCount = [0, 1, 2, 6, 24, 120, 720, 5040, 40320][n];
         expect(solutionCount).to.be.equal(expectedSolutionCount);
       });
     });
@@ -39,6 +38,7 @@ describe('solvers', function() {
       // Skip 2 and 3 because they have no solution.
       [0, 1, 4, 5, 6, 7, 8].map(function(n) {
         var solutionBoard = new Board(findNQueensSolution(n));
+        // debugger;
         var numPieces = _.reduce(solutionBoard.rows(), function(memo, row) {
           return memo + _.reduce(row, function(memo, col) {
             return memo + col;
