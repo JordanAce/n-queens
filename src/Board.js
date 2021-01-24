@@ -16,6 +16,7 @@
       } else {
         this.set('n', params.length);
       }
+
     },
 
     rows: function() {
@@ -69,7 +70,7 @@
     \__ \ || (_| | |  | |_  | | | |  __/ | |  __/_
     |___/\__\__,_|_|   \__| |_| |_|\___|_|  \___(_)
 
- */
+  */
     /*=========================================================================
     =                 TODO: fill in these Helper Functions                    =
     =========================================================================*/
@@ -150,16 +151,6 @@
     hasAnyColConflicts: function() {
       var board = this.attributes;
       var isTrue = false;
-      // for (var i = 0; i < board.n; i++) {
-      //   isTrue = board.hasAnyColConflicts(i);
-      //   if (isTrue) {
-      //     return isTrue;
-      //   } else {
-      //     isTrue;
-      //   }
-      // }
-      // return isTrue;
-      // return false; // fixme
 
       var recursive = function(colIndex) {
         var counter = 0;
@@ -210,35 +201,6 @@
         rowCounter++;
         start++;
       }
-      // var recursive = function() {
-      //   while (rowCounter < length && ColCounter < length) {
-
-      //   }
-      //   for (var i = start; i < length; i++) {
-      //     // if (rowCounter === length) {
-      //     //   break;
-      //     // }
-      //     if (board[rowCounter][start] === 1) {
-      //       counter++;
-      //     }
-      //     // debugger;
-      //     if (board[rowCounter + 1][start + 1] === 1) { // Board [0][1]; // [1][2] // [2][3] // [3][4]
-      //       counter++;
-      //     }
-      //     if (counter > 1) {
-      //       return true;
-      //     }
-      //     start++;
-      //     rowCounter++;
-      //     recursive(board);
-      //     // if (rowCounter < length - 1) {
-      //     //   recursive(board);
-      //     // } else {
-      //     //   break;
-      //     // }
-      //   }
-      // };
-      // recursive(board);
       return counter > 1;
     },
 
