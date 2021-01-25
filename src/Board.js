@@ -115,11 +115,6 @@
         }
       }
       return result;
-      // if (counter > 1) {
-      //   return true;
-      // } else {
-      //   return false;
-      // }
     },
 
 
@@ -257,17 +252,11 @@
       var newBoard = this.attributes;
       var length = newBoard.n;
       var finalResult = false;
-      // var topResult = false;
-      // var bottomResult = false;
       var positiveIndex = (length + 1);
       for (var i = positiveIndex; i > 0; i--) {
         if (this.hasMinorDiagonalConflictAt(i)) {
           return true;
         }
-        // topResult = this.hasMinorDiagonalConflictAt(i);
-        // if (topResult === true) {
-        //   finalResult = true;
-        // }
       }
       return finalResult;
     },
